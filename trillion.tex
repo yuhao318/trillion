@@ -1,0 +1,182 @@
+\documentclass{beamer}
+\usetheme{Berlin}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools,amssymb}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\begin{document}
+
+\title{Methods for l1 -Regularized Least Squares Problems}
+\author{yuhao}
+\institute{USTC}
+\date{\today}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{\insertshorttitle}
+    \tableofcontents
+\end{frame}
+
+
+\section{Introduction}
+\begin{frame}
+    \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			\item f${\small\tau}$ $\left( x \right)$:=$\tau\parallel$x$\parallel{_1}$+$ \dfrac{1}{2} \parallel$ Ax-b $\parallel{_2^2}$ $\left(1\right)$
+			\item A belongs to $R^{m*n}$,x is belongs to $R^{n}$ ;
+			\item This paper provide a method for non-trivial problems, inexact second-order methods can be very efficient;
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			%\item f${\small\tau}$ $\left( x \right)$:=$\tau\parallel$x$\parallel{_1}$+$ \dfrac{1}{2} \parallel$ Ax-b $\parallel{_2^2}$  $\left(1\right)$
+			\item The paper rigorously define a instance generator for problems of the form of $\left(1\right)$.
+			\item this generator can inexpensively create instances and control the sparsity and the conditioning of the problem;
+			\item Keywords : Second-order methods · Sparse least squares instance generator · Ill-conditioned problems
+	\end{itemize}
+\end{frame}
+
+
+\section{Instance Generator}
+\begin{frame}
+    \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			\item Given $\tau>0$,A$\in R^{m*n}$ and A has rank n.m$>$n, ${x^*}\in{R^n},b \in {R^m}$;
+			\item ${A^T} \left( Ax^* -b \right)\in -\tau \partial\|x ^{*}\|_{1}$;
+			\item $\partial\|x\|{_1}$=$\left[-1, 1\right]{^n}$  is the subdifferential of the l1-norm at point x.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			\item Given $e = Ax^* -b$,then $A^T e = \tau g$;
+			\includegraphics[scale = 0.5]{1.png} 
+	\end{itemize}
+\end{frame}
+
+\section{Construction of  A}
+\begin{frame}
+    \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			\item provide a paradigm on how matrix A can be inexpensively constructed such that its singular value decomposition is known;
+			\item $\sum=$ $\left[ \frac{diag \left( \sigma _{1},\sigma _{2},...\sigma _{n}\right)}{O_{m-n \times n}}\right]$ ;
+			\item $\sigma _{1},\sigma _{2},...\sigma _{n}$ is the singular values of A;				
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			\item $G\left( i,j,\theta\right)$ =$\left[\begin{matrix}
+						1  	   &\cdots	&0  	&\cdots  &0			&\cdots 	&0      \\
+						\vdots &\ddots 	&\vdots &		 &\vdots	&			&\vdots  \\
+ 						0      &\cdots	&c  	&\cdots  &-s		&\cdots 	&0      \\
+ 						\vdots &		&\vdots &\ddots  &\vdots	&			&\vdots  \\
+ 						0      &\cdots	&s	 	&\cdots  &c			&\cdots 	&0      \\
+ 						\vdots &		&\vdots &		 &\vdots	&\ddots		&\vdots  \\
+						0  	   &\cdots	&0  	&\cdots  &0			&\cdots 	&1      \\
+				\end{matrix}\right]
+				  $
+			\item Then define the following composition of them:
+				 $G\left(i,j,\theta\right)=G\left(i_1,j_1,\theta{_1} \right)...G\left(i_{\frac{n}{2}},j_{\frac{n}{2}},\theta{_\frac{n}{2}} \right) $;
+				 $\widehat{G}\left(i,j,\theta\right)=\widehat{G}\left(i_1,j_1,\theta{_1} \right)...\widehat{G}\left(i_{\frac{m}{2}},j_{\frac{m}{2}},\theta{_\frac{m}{2}} \right)$;	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			\item Define matrix A as $P\widehat{G}P\sum G$;
+			\item A's left singular vectors are the columns of $P\widehat{G}P$,the right singular vectors are the columns of G.
+			\item $(A^T A)^{-1} = G(\sum^T\sum)^{-1}G^T$;				
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+		\item m=16,n=8;
+		\includegraphics[scale = 0.4]{2.png} 		
+	\end{itemize}
+\end{frame}
+
+\section{Create x-opt}
+\begin{frame}
+    \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+		\includegraphics[scale = 0.5]{6.png}
+\end{frame}
+
+\begin{frame}
+		\includegraphics[scale = 0.5]{3.png}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			\item f${\small\tau}$ $\left( x \right)$:=$\tau\parallel$x$\parallel{_1}$+$\parallel$ Ax-b $\parallel{_2^2}$ $\left(1\right)$
+			\item A=$Q\wedge^{-1}Q$;
+			\item give a optimal solution generator:\includegraphics[scale = 0.5]{4.png}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+		\item OMP Algorithm
+		\item $\widehat{\gamma} =\mathop{\arg\min}\limits_{\gamma}\|x-D\gamma\|{_2^2}$ subject to $\|\gamma\|{_0}\leq K$
+		\includegraphics[scale = 0.5]{7.png}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+		\item This means that our objective to produce ill-conditioned optimal solutions was met, while we kept the computational costs low.
+		\item there is no guarantee that the projected solution is a good approximation to the one obtained in Step 2 of Procedure OsGen.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+		\item The aim of Procedure OsGen is to find a sparse $x{^*}$ with $ \kappa_{\rho}\left(x{^*}\right)$ arbitrarily large for some $\rho$ in the interval $\lambda_{n}(A^T A)\leq \rho \leq\lambda_{1}(A^T A)$.
+		\item Define a constant $\rho>0$ and the index set $I_\rho :=\left\lbrace i \in\left\lbrace 1,2,...n \right\rbrace \vert \lambda_{i}(A^T A)\geq \rho \right\rbrace$
+		\item Define the projection $P_\rho =G{_\rho}G{_\rho ^T}$,$G{_\rho}\in R^{n*r}$,$r=\vert I_\rho\vert$,matrix $G{_\rho}$ has as columns the eigenvectors of matrix $A^TA$, which correspond to eigenvalues with indices in $I_\rho$ .
+		\includegraphics[scale = 0.5]{8.png}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\begin{itemize} 
+		\item the denominator is the mass of $x^*$ which exists in the space spanned by eigenvectors of $A^TA$ which correspond to eigenvalues that are larger than or equal to $\rho$.
+		\item $\lambda_{n}(A^T A)\leq \rho \ll\lambda_{1}(A^T A)$.
+		\item $\kappa_{\rho}\left(x{^*}\right)$ is very large,then $\Vert P_{\rho}x^*\Vert$ is close to 0,the majority of the mass of $x^*$ is “hidden” in the space spanned by eigenvectors which correspond to eigenvalues that are smaller than $\rho$;
+		\includegraphics[scale = 0.5]{8.png}
+	\end{itemize}
+\end{frame}
+
+\section{Numercial Experiment}
+\begin{frame}
+    \tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+			\item We now present the performance of this method on synthetic huge scale (up to one trillion variables) problems as the number of variables increase.
+			\item $\theta=\dfrac{2\pi}{3},m=2n,s =\frac{n}{2^{10}}$;s/2 components equal to $-10^4$ ,others are set equal to $10^{-1}$
+			\includegraphics[scale = 0.5]{5.png}
+	\end{itemize}
+\end{frame}
+
+
+\end{document} 
